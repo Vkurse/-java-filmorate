@@ -15,4 +15,5 @@ public class ReleaseDateConstraintValidator implements ConstraintValidator<Relea
     public boolean isValid(LocalDate date, ConstraintValidatorContext constraintValidatorContext) {
         return date.isAfter(MIN_RELEASE_DATE);
     }
+
 }

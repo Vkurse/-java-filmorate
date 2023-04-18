@@ -25,4 +25,5 @@ public class LikeDbStorage {
         }
         return likes;
     }
+
 }

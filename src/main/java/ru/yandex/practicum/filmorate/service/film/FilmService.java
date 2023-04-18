@@ -22,7 +22,7 @@ public class FilmService {
     }
 
     public Film deleteLike(int filmId, int userId) {
-           return filmStorage.deleteLike(filmId, userId);
+        return filmStorage.deleteLike(filmId, userId);
     }
 
     public List<Film> getTopFilms(int count) {

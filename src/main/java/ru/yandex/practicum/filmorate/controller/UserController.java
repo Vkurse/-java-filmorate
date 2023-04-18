@@ -36,7 +36,7 @@ public class UserController {
     @PutMapping("/{id}/friends/{friendId}")
     public User addFriend(@PathVariable String id, @PathVariable String friendId) {
         log.info("Поступил запрос на добавления в друзья.");
-       return userService.addFriend(Integer.parseInt(id), Integer.parseInt(friendId));
+        return userService.addFriend(Integer.parseInt(id), Integer.parseInt(friendId));
     }
 
     @GetMapping
@@ -65,9 +65,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
-    public void deleteFriend(@PathVariable String id, @PathVariable String friendId) {
+    public User deleteFriend(@PathVariable String id, @PathVariable String friendId) {
         log.info("Поступил запрос на удаление из друзей.");
-        userService.deleteFriend(Integer.parseInt(id), Integer.parseInt(friendId));
+        return userService.deleteFriend(Integer.parseInt(id), Integer.parseInt(friendId));
     }
 
 }

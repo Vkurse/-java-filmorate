@@ -21,4 +21,5 @@ public class MpaService {
     public Mpa getMpaRating(int ratingMpaId) {
         return mpaDbStorage.getMpa(ratingMpaId);
     }
+
 }

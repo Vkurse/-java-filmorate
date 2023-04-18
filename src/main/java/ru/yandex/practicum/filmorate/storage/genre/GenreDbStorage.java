@@ -57,11 +57,9 @@ public class GenreDbStorage {
         return film;
     }
 
-    public Film updateGenresForCurrentFilm(Film film) {
+    public void updateGenresForCurrentFilm(Film film) {
         String sqlQuery = "DELETE FROM genre WHERE film_id = ?";
         jdbcTemplate.update(sqlQuery, film.getId());
-        addGenresForCurrentFilm(film);
-        return film;
     }
 
     public Genre getGenreForId(int id) {
@@ -71,7 +69,6 @@ public class GenreDbStorage {
         } catch (RuntimeException e) {
             throw new NotFoundException("Жанр не найден.");
         }
-
     }
 
     public Film addGenreNameToFilm(Film film) {
@@ -82,11 +79,11 @@ public class GenreDbStorage {
         return film;
     }
 
-
     private Genre mapRowToGenre(ResultSet resultSet, int rowNum) throws SQLException {
         return Genre.builder()
                 .id(resultSet.getInt("genre_id"))
                 .name(resultSet.getString("name"))
                 .build();
     }
+
 }

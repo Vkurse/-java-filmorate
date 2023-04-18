@@ -64,7 +64,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void createFilm_RealiseDateInFuture_badRequestTest(){
+    void createFilm_RealiseDateInFuture_badRequestTest() {
         testFilm.setReleaseDate(LocalDate.of(2033, 4, 14));
         try {
             controller.create(testFilm);
@@ -74,7 +74,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void createFilm_RealiseDateBeforeFirstFilmDate_badRequestTest(){
+    void createFilm_RealiseDateBeforeFirstFilmDate_badRequestTest() {
         testFilm.setReleaseDate(LocalDate.of(1833, 4, 14));
         try {
             controller.create(testFilm);

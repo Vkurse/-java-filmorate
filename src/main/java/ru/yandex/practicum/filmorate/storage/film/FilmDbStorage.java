@@ -75,7 +75,7 @@ public class FilmDbStorage implements FilmStorage {
         if (rowsCount > 0) {
             return film;
         }
-        throw new NotFoundException("Фильм не найденю");
+        throw new NotFoundException("Фильм не найдено.");
     }
 
     @Override
@@ -92,6 +92,8 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public Film putALike(int filmId, int userId) {
         Film film = getFilmById(filmId);
+        film.getLikes().add(userId);
+        userStorage.getUserById(userId);
         String sqlQuery = "INSERT INTO likes (film_id, user_id) VALUES(?, ?)";
         jdbcTemplate.update(sqlQuery, filmId, userId);
         return film;
@@ -141,4 +143,5 @@ public class FilmDbStorage implements FilmStorage {
         values.put("rating_mpa_id", film.getMpa().getId());
         return values;
     }
+
 }

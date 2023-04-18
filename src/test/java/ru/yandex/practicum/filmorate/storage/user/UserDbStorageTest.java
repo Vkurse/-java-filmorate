@@ -12,7 +12,8 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.time.LocalDate;
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -20,27 +21,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserDbStorageTest {
     private final UserDbStorage userDbStorage;
     private final JdbcTemplate jdbcTemplate;
-    User user;
-    User friend;
+    User testUser;
+    User testFriend;
     User mutualFriend;
 
     @BeforeEach
     public void setup() {
         jdbcTemplate.update("DELETE FROM users");
         jdbcTemplate.update("DELETE FROM friends");
-        user = User.builder()
+        testUser = User.builder()
                 .email("mail@mail.mail")
                 .login("login")
                 .birthday(LocalDate.of(1999, 8, 17))
                 .build();
-        user.setFriends(new HashSet<>());
+        testUser.setFriends(new HashSet<>());
 
-        friend = User.builder()
+        testFriend = User.builder()
                 .email("gmail@gmail.gmail")
                 .login("nelogin")
-                .birthday(LocalDate.of(2001, 6, 19))
+                .birthday(LocalDate.of(1995, 7, 14))
                 .build();
-        friend.setFriends(new HashSet<>());
+        testFriend.setFriends(new HashSet<>());
 
         mutualFriend = User.builder()
                 .email("mutual@mutual.mutual")
@@ -50,46 +51,41 @@ class UserDbStorageTest {
         mutualFriend.setFriends(new HashSet<>());
     }
 
-
     @Test
     void shouldCreateAndUpdateAndGetUser() {
-        userDbStorage.addUser(user);
-        assertEquals(user, userDbStorage.getUserById(user.getId()));
-        assertEquals(user.getLogin(), userDbStorage.getUserById(user.getId()).getName());
+        userDbStorage.addUser(testUser);
+        assertEquals(testUser, userDbStorage.getUserById(testUser.getId()));
+        assertEquals(testUser.getLogin(), userDbStorage.getUserById(testUser.getId()).getName());
 
-        user.setEmail("lol@lol.lol");
-        userDbStorage.updateUser(user);
-        assertEquals(user, userDbStorage.getUserById(user.getId()));
+        testUser.setEmail("lol@lol.lol");
+        userDbStorage.updateUser(testUser);
+        assertEquals(testUser, userDbStorage.getUserById(testUser.getId()));
 
         assertEquals(1, userDbStorage.findAllUsers().size());
-        assertEquals(user, userDbStorage.getUserById(user.getId()));
+        assertEquals(testUser, userDbStorage.getUserById(testUser.getId()));
     }
-
 
     @Test
     void shouldAddAndDeleteFriends() {
-        userDbStorage.addUser(user);
-        userDbStorage.addUser(friend);
-        userDbStorage.addFriend(user.getId(), friend.getId());
-        assertEquals(1, userDbStorage.getFriendsByUserId(user.getId()).size());
-        assertEquals(0, userDbStorage.getFriendsByUserId(friend.getId()).size());
+        userDbStorage.addUser(testUser);
+        userDbStorage.addUser(testFriend);
+        userDbStorage.addFriend(testUser.getId(), testFriend.getId());
+        assertEquals(1, userDbStorage.getFriendsByUserId(testUser.getId()).size());
+        assertEquals(0, userDbStorage.getFriendsByUserId(testFriend.getId()).size());
 
-        userDbStorage.deleteFriend(user.getId(), friend.getId());
-        assertEquals(0, userDbStorage.getFriendsByUserId(user.getId()).size());
-        assertEquals(0, userDbStorage.getFriendsByUserId(friend.getId()).size());
+        userDbStorage.deleteFriend(testUser.getId(), testFriend.getId());
+        assertEquals(0, userDbStorage.getFriendsByUserId(testUser.getId()).size());
+        assertEquals(0, userDbStorage.getFriendsByUserId(testFriend.getId()).size());
     }
 
-    /**
-     * Тест на получение списка общих друзей двух пользователей
-     */
     @Test
     void shouldGetMutualFriends() {
-        userDbStorage.addUser(user);
-        userDbStorage.addUser(friend);
+        userDbStorage.addUser(testUser);
+        userDbStorage.addUser(testFriend);
         userDbStorage.addUser(mutualFriend);
-        userDbStorage.addFriend(user.getId(), mutualFriend.getId());
-        userDbStorage.addFriend(friend.getId(), mutualFriend.getId());
-        assertSame(userDbStorage.getMutualFriends(user.getId(), friend.getId()).get(0).getId(), mutualFriend.getId());
+        userDbStorage.addFriend(testUser.getId(), mutualFriend.getId());
+        userDbStorage.addFriend(testFriend.getId(), mutualFriend.getId());
+        assertSame(userDbStorage.getMutualFriends(testUser.getId(), testFriend.getId()).get(0).getId(), mutualFriend.getId());
     }
 
 }

@@ -141,4 +141,5 @@ public class UserDbStorage implements UserStorage {
             user.setName(user.getLogin());
         }
     }
+
 }
