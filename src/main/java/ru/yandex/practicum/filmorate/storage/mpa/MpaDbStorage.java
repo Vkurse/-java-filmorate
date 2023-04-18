@@ -18,13 +18,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class MpaDbStorage {
 
-private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    public List<Mpa> findAll(){
-        List<Mpa> mpaList=new ArrayList<>();
+    public List<Mpa> findAll() {
+        List<Mpa> mpaList = new ArrayList<>();
         SqlRowSet mpaRows = jdbcTemplate.queryForRowSet("SELECT rating_mpa_id, name FROM mpa_type");
         while (mpaRows.next()) {
-            Mpa mpa= Mpa.builder()
+            Mpa mpa = Mpa.builder()
                     .id(mpaRows.getInt("rating_mpa_id"))
                     .name(mpaRows.getString("name"))
                     .build();
@@ -33,18 +33,18 @@ private final JdbcTemplate jdbcTemplate;
         return mpaList;
     }
 
-    public Mpa getMpa(int mpaId){
-        String sqlQuery= "SELECT rating_mpa_id, name FROM mpa_type WHERE rating_mpa_id=?";
+    public Mpa getMpa(int mpaId) {
+        String sqlQuery = "SELECT rating_mpa_id, name FROM mpa_type WHERE rating_mpa_id=?";
         try {
             return jdbcTemplate.queryForObject(sqlQuery, this::mapRowToMpa, mpaId);
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             throw new NotFoundException("Рейтинг mpa не найден.");
         }
     }
 
-    public void addMpaToFilm(Film film){
+    public void addMpaToFilm(Film film) {
         findAll().forEach(mpa -> {
-            if(Objects.equals(film.getMpa().getId(), mpa.getId())){
+            if (Objects.equals(film.getMpa().getId(), mpa.getId())) {
                 film.setMpa(mpa);
             }
         });
