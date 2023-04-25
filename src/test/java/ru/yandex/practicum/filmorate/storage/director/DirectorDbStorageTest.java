@@ -28,8 +28,8 @@ class DirectorDbStorageTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        jdbcTemplate.update(Files.readString(Paths.get("src/main/resources/schema.sql")));
-        jdbcTemplate.update(Files.readString(Paths.get("src/main/resources/data.sql")));
+        jdbcTemplate.update(Files.readString(Paths.get("src/test/resources/schema.sql")));
+        jdbcTemplate.update(Files.readString(Paths.get("src/test/resources/data.sql")));
         director = Director.builder()
                 .name("Режиссёр")
                 .build();

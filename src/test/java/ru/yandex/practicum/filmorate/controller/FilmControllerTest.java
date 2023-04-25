@@ -32,8 +32,8 @@ public class FilmControllerTest {
 
     @BeforeEach
     protected void init() throws IOException {
-        jdbcTemplate.update(Files.readString(Paths.get("src/main/resources/schema.sql")));
-        jdbcTemplate.update(Files.readString(Paths.get("src/main/resources/data.sql")));
+        jdbcTemplate.update(Files.readString(Paths.get("src/test/resources/schema.sql")));
+        jdbcTemplate.update(Files.readString(Paths.get("src/test/resources/data.sql")));
         testFilm = Film.builder()
                 .name("Тестовый фильм")
                 .description("Тестовое описание тестового фильма")
