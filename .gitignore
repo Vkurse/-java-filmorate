@@ -45,4 +45,4 @@ build/
 
 *.db
 db/*
-.mvnw
+*.mvnw
