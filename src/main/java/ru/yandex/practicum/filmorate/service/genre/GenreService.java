@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.service.film;
+package ru.yandex.practicum.filmorate.service.genre;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,11 +8,10 @@ import ru.yandex.practicum.filmorate.storage.genre.GenreStorage;
 
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 @RequiredArgsConstructor
 public class GenreService {
-
     private final GenreStorage genreDbStorage;
 
     public Genre getGenre(int genreId) {

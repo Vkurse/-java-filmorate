@@ -15,12 +15,28 @@ public class UserService {
 
     private final UserStorage userStorage;
 
-    public User addFriend(int userId, int friendId) {
+    public User getUserById(Integer userId) {
+        return userStorage.getUserById(userId);
+    }
+
+    public List<User> findAllUsers() {
+        return userStorage.findAllUsers();
+    }
+
+    public User addUser(User user) {
+        return userStorage.addUser(user);
+    }
+
+    public User updateUser(User user) {
+        return userStorage.updateUser(user);
+    }
+
+    public User addFriend(Integer userId, Integer friendId) {
         userStorage.addFriend(userId, friendId);
         return userStorage.getUserById(userId);
     }
 
-    public User deleteFriend(int userId, int friendId) {
+    public User deleteFriend(Integer userId, Integer friendId) {
         userStorage.deleteFriend(userId, friendId);
         return userStorage.getUserById(userId);
     }
@@ -29,8 +45,7 @@ public class UserService {
         return userStorage.getFriendsByUserId(userId);
     }
 
-    public List<User> getMutualFriends(int userId, int otherId) {
-        return userStorage.getMutualFriends(userId, otherId);
+    public List<User> getCommonsFriends(Integer userId, Integer otherUserId) {
+        return userStorage.getCommonsFriends(userId, otherUserId);
     }
-
 }

@@ -7,18 +7,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.Mpa;
-import ru.yandex.practicum.filmorate.service.film.MpaService;
+import ru.yandex.practicum.filmorate.service.mpa.MpaService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/mpa")
 @RequiredArgsConstructor
-@Slf4j
 public class MpaController {
-
     private final MpaService mpaService;
-
 
     @GetMapping
     public List<Mpa> findAll() {
@@ -26,10 +24,9 @@ public class MpaController {
         return mpaService.findAll();
     }
 
-
     @GetMapping("/{id}")
     public Mpa getMpaRating(@PathVariable("id") int mpaId) {
-        log.info("Получен запрос на получение MPA по id: " + mpaId);
-        return mpaService.getMpaRating(mpaId);
+        log.info("Получен запрос на получение MPA по id: {}", mpaId);
+        return mpaService.getMpaById(mpaId);
     }
 }

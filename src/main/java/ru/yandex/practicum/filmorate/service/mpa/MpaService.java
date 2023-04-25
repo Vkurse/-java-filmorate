@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.service.film;
+package ru.yandex.practicum.filmorate.service.mpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +8,8 @@ import ru.yandex.practicum.filmorate.storage.mpa.MpaStorage;
 
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 @RequiredArgsConstructor
 public class MpaService {
     private final MpaStorage mpaDbStorage;
@@ -18,7 +18,7 @@ public class MpaService {
         return mpaDbStorage.findAll();
     }
 
-    public Mpa getMpaRating(int ratingMpaId) {
-        return mpaDbStorage.getMpa(ratingMpaId);
+    public Mpa getMpaById(int mpaId) {
+        return mpaDbStorage.getMpaById(mpaId);
     }
 }

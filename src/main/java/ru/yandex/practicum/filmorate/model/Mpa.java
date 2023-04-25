@@ -9,10 +9,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 public class Mpa {
-
     @NotNull
     private Integer id;
+
     @NotNull
     private String name;
-
 }

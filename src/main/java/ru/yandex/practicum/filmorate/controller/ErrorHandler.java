@@ -10,22 +10,15 @@ import ru.yandex.practicum.filmorate.model.ErrorResponse;
 
 @RestControllerAdvice
 public class ErrorHandler {
-
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFoundException(final NotFoundException e) {
-        return new ErrorResponse(
-                e.getMessage()
-        );
+        return new ErrorResponse(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidationException(final ValidationException e) {
-        return new ErrorResponse(
-                e.getMessage()
-        );
+        return new ErrorResponse(e.getMessage());
     }
-
 }
