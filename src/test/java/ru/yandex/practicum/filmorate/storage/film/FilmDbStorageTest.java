@@ -16,8 +16,8 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.film.FilmService;
 import ru.yandex.practicum.filmorate.storage.director.DirectorStorage;
 import ru.yandex.practicum.filmorate.storage.film.dao.FilmDbStorage;
-import ru.yandex.practicum.filmorate.storage.like.LikeDbStorage;
-import ru.yandex.practicum.filmorate.storage.user.UserDbStorage;
+import ru.yandex.practicum.filmorate.storage.like.dao.LikeDbStorage;
+import ru.yandex.practicum.filmorate.storage.user.dao.UserDbStorage;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -10,8 +10,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.Mpa;
-import ru.yandex.practicum.filmorate.service.film.GenreService;
+import ru.yandex.practicum.filmorate.service.genre.GenreService;
 import ru.yandex.practicum.filmorate.storage.film.dao.FilmDbStorage;
+import ru.yandex.practicum.filmorate.storage.genre.dao.GenreDbStorage;
 
 import java.time.LocalDate;
 import java.util.HashSet;
