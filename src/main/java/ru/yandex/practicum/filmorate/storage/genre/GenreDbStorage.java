@@ -18,7 +18,6 @@ public class GenreDbStorage implements GenreStorage {
 
     private final JdbcTemplate jdbcTemplate;
 
-
     public List<Genre> findAll() {
         List<Genre> genreList = new ArrayList<>();
         SqlRowSet genreRows = jdbcTemplate.queryForRowSet("SELECT genre_id, name FROM genre_type");

@@ -5,18 +5,16 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.validator.FilmValidator;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
-
+    FilmValidator filmValidator = new FilmValidator();
     private final HashMap<Integer, Film> films = new HashMap<>();
     private int idForFilm = 0;
 
@@ -27,7 +25,7 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Film addFilm(Film film) {
-        validationFilm(film);
+        filmValidator.validate(film);
         film.setLikes(new HashSet<>());
         film.setId(getIdForFilm());
         films.put(film.getId(), film);
@@ -38,7 +36,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     @Override
     public Film updateFilm(Film film) {
         if (films.get(film.getId()) != null) {
-            validationFilm(film);
+            filmValidator.validate(film);
             film.setLikes(new HashSet<>());
             films.put(film.getId(), film);
             log.info("Поступил запрос на изменения фильма. Фильм изменён.");
@@ -79,21 +77,12 @@ public class InMemoryFilmStorage implements FilmStorage {
                 .limit(count).collect(Collectors.toList());
     }
 
+    @Override
+    public LinkedHashSet<Film> filmsByDirector(int directorId, String sortBy) {
+        return null;
+    }
+
     private int getIdForFilm() {
         return ++idForFilm;
     }
-
-    private void validationFilm(Film film) throws ValidationException {
-        if (film.getReleaseDate().isBefore(LocalDate.parse("1895-12-28"))
-                || film.getReleaseDate().isAfter(LocalDate.now())) {
-            throw new ValidationException("Некорректно указана дата релиза.");
-        }
-        if (film.getName().isEmpty()) {
-            throw new ValidationException("Некорректно указано название фильма.");
-        }
-        if (film.getDescription().length() > 200) {
-            throw new ValidationException("Превышено количество символов в описании фильма.");
-        }
-    }
-
 }

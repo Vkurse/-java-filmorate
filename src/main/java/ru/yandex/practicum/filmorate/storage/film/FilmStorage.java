@@ -2,6 +2,8 @@ package ru.yandex.practicum.filmorate.storage.film;
 
 import ru.yandex.practicum.filmorate.model.Film;
 
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public interface FilmStorage {
@@ -39,4 +41,6 @@ public interface FilmStorage {
      * Метод для получения списка популярных фильмов
      */
     List<Film> getRating(int count);
+
+    LinkedHashSet<Film> filmsByDirector(int directorId, String sortBy);
 }
